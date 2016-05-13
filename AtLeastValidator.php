@@ -1,9 +1,10 @@
 <?php
 
-namespace slinstj\yii2-choose-validator;
+namespace common\validators;
 
 use yii\base\InvalidConfigException;
 use yii\validators\Validator;
+
 /**
  * Checks if one or more in a list of attributes are filled.
  *
@@ -27,6 +28,21 @@ use yii\validators\Validator;
  *          ['attr1', AtLeastValidator::className(), 'min' => 2, 'in' => ['attr1', 'attr2', 'attr3']],
  *      ];
  * ~~~
+ *
+ * If you want to show errors in a summary instead in the own attributes, you can do this:
+ * ~~~[php]
+ *      // in rules()
+ *      return [
+ *          ['!id', AtLeastValidator::className(), 'in' => ['attr1', 'attr2', 'attr3']], // where `id` is the pk
+ *      ];
+ *
+ *      // view:
+ *      ...
+ *      echo yii\helpers\Html::errorSummary($model, ['class' => ['text-danger']]);
+ *      // OR, to show only `id` errors:
+ *      echo yii\helpers\Html::error($model, 'id', ['class' => ['text-danger']]); 
+ * ~~~
+ *
  *
  * @author Sidney Lins <slinstj@gmail.com>
  */
