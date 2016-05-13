@@ -2,19 +2,18 @@
 
 namespace slinstj\yii2-choose-validator;
 
-use Yii;
 use yii\base\InvalidConfigException;
-
+use yii\validators\Validator;
 /**
  * Checks if one or more in a list of attributes are filled.
  *
  * In the following example, the `attr1` and `attr2` attributes will
- * be verified. If none of them are filled they will receive an error:
+ * be verified. If none of them are filled `attr1` will receive an error:
  *
  * ~~~[php]
  *      // in rules()
  *      return [
- *          [['attr1', 'attr2'], AtLeastValidator::className()],
+ *          ['attr1', AtLeastValidator::className(), 'in' => ['attr1', 'attr2']],
  *      ];
  * ~~~
  *
@@ -51,28 +50,34 @@ class AtLeastValidator extends Validator
      */
     public $skipOnEmpty = false;
 
+    public $skipOnError = false;
+
     /**
      * @inheritdoc
      */
     public function init()
     {
         parent::init();
+        if ($this->in === null) {
+            throw new InvalidConfigException('The `in` parameter is required.');
+        }
         if ($this->message === null) {
-            $this->message = 'At least {min} of the attributes {attributes}';
+            $this->message = 'You must fill at least {min} of the attributes {attributes}.';
         }
     }
 
     public function validateAttribute($model, $attribute)
     {
-        $attributes = (array) $this->in ?? (array) $attribute;
+        $attributes = $this->in ? (array) $this->in : (array) $attribute;
+        $chosen = 0;
 
         foreach ($attributes as $attributeName) {
             $value = $model->$attributeName;
             $attributesListLabels[] = '"' . $model->generateAttributeLabel($attributeName) . '"';
-            $choosen += !empty($value) ? 1 : 0;
+            $chosen += !empty($value) ? 1 : 0;
         }
 
-        if (!$choosen) {
+        if (!$chosen) {
             $attributesList = implode(', ', $attributesListLabels);
             $message = strtr($this->message, [
                 '{min}' => $this->min,
