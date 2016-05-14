@@ -55,17 +55,11 @@ class AtLeastValidator extends Validator
     public $min = 1;
 
     /**
-     * @var string|array the list of attributes that should receive the error message.
-     * Defaults to all attributes being validated.
+     * @var string|array the list of attributes that should receive the error message. Required.
      */
     public $in;
 
-    /**
-     * @var boolean whether this validation rule should be skipped if the attribute value
-     * is null or an empty string.
-     */
     public $skipOnEmpty = false;
-
     public $skipOnError = false;
 
     /**

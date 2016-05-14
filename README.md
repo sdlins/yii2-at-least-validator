@@ -1,30 +1,24 @@
 # AtLeastValidator - Yii 2
 
-## Usage
+## Installation
 
+Use composer:
 
 ```php
-namespace app\models;
-
-...
-use slinstj\yii2-validators\AtLeastValidator;
+    composer require "slinstj/yii2-at-least-validator"
+```
+In your Model, import the validator:
+```php
+use slinstj\yii2_validators\AtLeastValidator;
 
 class MyModel extends Model
 {
-    public $name;
-    public $email;
-    public $phone;
-
+...
     public function rules()
     {
-        return [
-            [['name', 'email'], 'required'],
-            [['phone', 'email'], AtLeastValidator::className()],
-            // ['name', AtLeastValidator::className(), 'min' => 2, 'in' ['name', 'email, 'phone']] *** using parameters,
-            ['email', 'email'],
-        ];
+        // see examples below
     }
-}
+...
 ```
 
 ## Examples
