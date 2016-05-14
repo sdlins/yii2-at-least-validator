@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "slinstj\\yii2-validators\\": ""
+            "slinstj\\yii2_validators\\": ""
         }
     }
 }

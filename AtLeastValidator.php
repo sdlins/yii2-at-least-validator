@@ -1,6 +1,6 @@
 <?php
 
-namespace common\validators;
+namespace slinstj\yii2_validators;
 
 use yii\base\InvalidConfigException;
 use yii\validators\Validator;
