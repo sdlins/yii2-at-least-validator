@@ -1,0 +1,22 @@
+{
+    "name": "slinstj/yii2-at-least-validator",
+    "description": "Validates at least one (or more) attributes.",
+    "type": "yii2-extension",
+    "keywords": ["yii2","validator","at least","validation"],
+    "homepage": "https://github.com/slinstj/yii2-at-least-validator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sidney Lins",
+            "email": "slinstj@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "2.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "slinstj\\yii2-validators\\": ""
+        }
+    }
+}
