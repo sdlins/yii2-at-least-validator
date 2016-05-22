@@ -5,11 +5,11 @@
 Use composer:
 
 ```php
-    composer require "slinstj/yii2-at-least-validator"
+    composer require "codeonyii/yii2-at-least-validator"
 ```
 In your Model, import the validator:
 ```php
-use slinstj\yii2_validators\AtLeastValidator;
+use codeonyii\yii2validators\AtLeastValidator;
 
 class MyModel extends Model
 {
