@@ -5,7 +5,7 @@
 Use composer:
 
 ```php
-    composer require "codeonyii/yii2-at-least-validator"
+    composer require "code-on-yii/yii2-at-least-validator"
 ```
 In your Model, import the validator:
 ```php
