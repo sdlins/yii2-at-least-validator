@@ -18,5 +18,8 @@
         "psr-4": {
             "codeonyii\\yii2validators\\": ""
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4"
     }
 }
