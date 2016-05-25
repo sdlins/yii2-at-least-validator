@@ -89,7 +89,7 @@ class AtLeastValidator extends Validator
             $chosen += !empty($value) ? 1 : 0;
         }
 
-        if (!$chosen) {
+        if (!$chosen || $chosen < $this->min) {
             $attributesList = implode(', ', $attributesListLabels);
             $message = strtr($this->message, [
                 '{min}' => $this->min,
