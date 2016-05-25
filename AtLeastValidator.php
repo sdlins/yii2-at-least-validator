@@ -70,6 +70,8 @@ class AtLeastValidator extends Validator
         parent::init();
         if ($this->in === null) {
             throw new InvalidConfigException('The `in` parameter is required.');
+        } elseif (! is_array($this->in) && count(preg_split('/\s*,\s*/', $this->in, -1, PREG_SPLIT_NO_EMPTY)) <= 1) {
+            throw new InvalidConfigException('The `in` parameter must have at least 2 attributes.');
         }
         if ($this->message === null) {
             $this->message = 'You must fill at least {min} of the attributes {attributes}.';
@@ -78,7 +80,7 @@ class AtLeastValidator extends Validator
 
     public function validateAttribute($model, $attribute)
     {
-        $attributes = $this->in ? (array) $this->in : (array) $attribute;
+        $attributes = is_array($this->in) ? $this->in : preg_split('/\s*,\s*/', $this->in, -1, PREG_SPLIT_NO_EMPTY);
         $chosen = 0;
 
         foreach ($attributes as $attributeName) {
