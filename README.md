@@ -77,5 +77,5 @@ or for your entire form.*
 
 ## Changelog
 
-1.1: Adds client-side validation;
-1.0.3: Basic funcionality and tests;
+* 1.1: Adds client-side validation;
+* 1.0.3: Basic funcionality and tests;
