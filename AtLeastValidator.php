@@ -122,15 +122,16 @@ class AtLeastValidator extends Validator
                 var chosen = 0; 
                 $.each(atributes, function(key, attr){
                     var obj = $('#' + formName + '-' + attr);
-                    obj.parent().removeClass('has-error');
-                    obj.parent().find('.help-block').hide();
                     var val = obj.val();
                     chosen += val ? 1 : 0;
                 });
                 if (!chosen || chosen < $this->min) {
                     messages.push('$message');
                 } else {
-                    messages = [];
+                    $.each(atributes, function(key, attr){
+                        var attrId = formName + '-' + attr;
+                        \$form.yiiActiveForm('updateAttribute', attrId, '');
+                    });
                 }
             }
             atLeastValidator();
