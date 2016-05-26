@@ -59,7 +59,14 @@ class AtLeastValidator extends Validator
      */
     public $in;
 
+    /**
+     * @inheritdoc
+     */
     public $skipOnEmpty = false;
+
+    /**
+     * @inheritdoc
+     */
     public $skipOnError = false;
 
     /**
@@ -78,6 +85,9 @@ class AtLeastValidator extends Validator
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function validateAttribute($model, $attribute)
     {
         $attributes = is_array($this->in) ? $this->in : preg_split('/\s*,\s*/', $this->in, -1, PREG_SPLIT_NO_EMPTY);
@@ -99,6 +109,10 @@ class AtLeastValidator extends Validator
         }
     }
 
+    /**
+     * @inheritdoc
+     * @since: 1.1
+     */
     public function clientValidateAttribute($model, $attribute, $view)
     {
         $attributes = is_array($this->in) ? $this->in : preg_split('/\s*,\s*/', $this->in, -1, PREG_SPLIT_NO_EMPTY);
