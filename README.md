@@ -1,4 +1,10 @@
-# AtLeastValidator - Yii 2
+# Yii 2 - AtLeastValidator
+
+Sometimes, in a set of fields, you need to make at least one of them
+(sometimes two, or more) be filled. For example, phone OR e-mail,
+(facebook OR linkedin) OR (linkedin OR instagram) and so on. You can do
+it using required validator with a bunch of conditional rules. Or you can
+use AtLeastValidator.
 
 ## Installation
 
@@ -23,29 +29,35 @@ class MyModel extends Model
 
 ## Examples
 
-In the following example, the `attr1` and `attr2` attributes will
-be verified. If none of them are filled `attr1` will receive an error:
+In the following example, the `phone` and `email` attributes will
+be verified. If none of them are filled `phone` will receive an error.
+Please, note that `in` param is always mandatory.
 
 ```php
      // in rules()
      return [
-         ['attr1', AtLeastValidator::className(), 'in' => ['attr1', 'attr2']],
+         ['phone', AtLeastValidator::className(), 'in' => ['phone', 'email']],
      ];
 ```
 
-Here, the `attr1`, `attr2` and `attr3` attributes will
-be verified. If at least 2 (`min`) of them are not filled, `attr1` will
-receive an error:
+Here, `facebook`, `linkedin` and `instagram` attributes will
+be verified. If at least 2 (note the `min` param) of them are not filled,
+`facebook` and `instagram` will receive an error:
 
 ```php
      // in rules()
      return [
-         ['attr1', AtLeastValidator::className(), 'min' => 2, 'in' => ['attr1', 'attr2', 'attr3']],
+         [['facebook', 'instagram'], AtLeastValidator::className(), 'in' => ['facebook', 'linkedin', 'instagram'], 'min' => 2],
      ];
 ```
+
 ### Showing errors in summary
 
 If you want to show errors in a summary instead in the own attributes, you can do this:
+
+*Note that summary will **not** work for client-side validation. If you want
+to use it, you should disable the client-side validation for your fields
+or for your entire form.*
 
 ```php
      // in the rules()
@@ -54,9 +66,16 @@ If you want to show errors in a summary instead in the own attributes, you can d
          ['!id', AtLeastValidator::className(), 'in' => ['attr1', 'attr2', 'attr3']], // where `id` is the pk
      ];
 
-     // in the view:
+     // in the view, show all errors in the summary:
      ...
      echo yii\helpers\Html::errorSummary($model, ['class' => ['text-danger']]);
+
      // OR, to show only `id` errors:
      echo yii\helpers\Html::error($model, 'id', ['class' => ['text-danger']]);
 ```
+
+
+## Changelog
+
+1.1: Adds client-side validation;
+1.0.3: Basic funcionality and tests;
