@@ -59,7 +59,14 @@ class AtLeastValidator extends Validator
      */
     public $in;
 
+    /**
+     * @inheritdoc
+     */
     public $skipOnEmpty = false;
+
+    /**
+     * @inheritdoc
+     */
     public $skipOnError = false;
 
     /**
@@ -78,6 +85,9 @@ class AtLeastValidator extends Validator
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function validateAttribute($model, $attribute)
     {
         $attributes = is_array($this->in) ? $this->in : preg_split('/\s*,\s*/', $this->in, -1, PREG_SPLIT_NO_EMPTY);
@@ -85,7 +95,7 @@ class AtLeastValidator extends Validator
 
         foreach ($attributes as $attributeName) {
             $value = $model->$attributeName;
-            $attributesListLabels[] = '"' . $model->generateAttributeLabel($attributeName) . '"';
+            $attributesListLabels[] = '"' . $model->generateAttributeLabel($attributeName) . '"'; // TODO simplify this
             $chosen += !empty($value) ? 1 : 0;
         }
 
@@ -97,5 +107,48 @@ class AtLeastValidator extends Validator
             ]);
             $model->addError($attribute, $message);
         }
+    }
+
+    /**
+     * @inheritdoc
+     * @since: 1.1
+     */
+    public function clientValidateAttribute($model, $attribute, $view)
+    {
+        $attributes = is_array($this->in) ? $this->in : preg_split('/\s*,\s*/', $this->in, -1, PREG_SPLIT_NO_EMPTY);
+        $attributesJson = json_encode($attributes);
+
+        $attributesLabels = [];
+        foreach ($attributes as $attr) {
+            $attributesLabels[] = '"' . $model->getAttributeLabel($attr) . '"';
+        }
+        $message = strtr($this->message, [
+            '{min}' => $this->min,
+            '{attributes}' => implode(" or ", $attributesLabels),
+        ]);
+
+        $form = strtolower($model->formName());
+
+        return <<<JS
+            function atLeastValidator() {
+                var atributes = $attributesJson;
+                var formName = '$form';
+                var chosen = 0; 
+                $.each(atributes, function(key, attr){
+                    var obj = $('#' + formName + '-' + attr);
+                    var val = obj.val();
+                    chosen += val ? 1 : 0;
+                });
+                if (!chosen || chosen < $this->min) {
+                    messages.push('$message');
+                } else {
+                    $.each(atributes, function(key, attr){
+                        var attrId = formName + '-' + attr;
+                        \$form.yiiActiveForm('updateAttribute', attrId, '');
+                    });
+                }
+            }
+            atLeastValidator();
+JS;
     }
 }
