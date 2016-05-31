@@ -1,5 +1,7 @@
 # Yii 2 - AtLeastValidator
 
+[![Build Status](https://travis-ci.org/code-on-yii/yii2-at-least-validator.svg?branch=master)](https://travis-ci.org/code-on-yii/yii2-at-least-validator)
+
 Sometimes, in a set of fields, you need to make at least one of them
 (sometimes two, or more) be filled. For example, phone OR e-mail,
 (facebook OR linkedin) OR (linkedin OR instagram) and so on. You can do
