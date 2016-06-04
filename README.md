@@ -1,6 +1,7 @@
 # Yii 2 - AtLeastValidator
 
 [![Build Status](https://travis-ci.org/code-on-yii/yii2-at-least-validator.svg?branch=master)](https://travis-ci.org/code-on-yii/yii2-at-least-validator)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/code-on-yii/yii2-at-least-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/code-on-yii/yii2-at-least-validator/?branch=master)
 
 Sometimes, in a set of fields, you need to make at least one of them
 (sometimes two, or more) be filled. For example, phone OR e-mail,
