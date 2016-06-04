@@ -81,3 +81,7 @@ or for your entire form.*
 
 * 1.1: Adds client-side validation;
 * 1.0.3: Basic funcionality and tests;
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/code-on-yii/yii2-at-least-validator/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
