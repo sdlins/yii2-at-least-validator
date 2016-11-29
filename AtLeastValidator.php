@@ -116,6 +116,7 @@ class AtLeastValidator extends Validator
     public function clientValidateAttribute($model, $attribute, $view)
     {
         $attributes = is_array($this->in) ? $this->in : preg_split('/\s*,\s*/', $this->in, -1, PREG_SPLIT_NO_EMPTY);
+        $attributes = array_map('strtolower',$attributes); // yii lowercases attributes
         $attributesJson = json_encode($attributes);
 
         $attributesLabels = [];
