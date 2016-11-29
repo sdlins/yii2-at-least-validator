@@ -95,7 +95,7 @@ class AtLeastValidator extends Validator
 
         foreach ($attributes as $attributeName) {
             $value = $model->$attributeName;
-            $attributesListLabels[] = '"' . $model->generateAttributeLabel($attributeName) . '"'; // TODO simplify this
+            $attributesListLabels[] = '"' . $model->getAttributeLabel($attributeName). '"';
             $chosen += !empty($value) ? 1 : 0;
         }
 
