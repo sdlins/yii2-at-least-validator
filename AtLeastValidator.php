@@ -110,7 +110,7 @@ class AtLeastValidator extends Validator
 
         if (
             !$chosen || $chosen < $this->min ||
-            ($this->max > 0 and $chosen > $this->max)
+            ($this->max > 0 && $chosen > $this->max)
         ) {
             $attributesList = implode(', ', $attributesListLabels);
             $message = strtr($this->message, [
