@@ -54,6 +54,16 @@ be verified. If at least 2 (note the `min` param) of them are not filled,
      ];
 ```
 
+Here, `facebook`, `linkedin` and `instagram` attributes will
+be verified. If more than one are filled, `facebook` will receive an error:
+
+```php
+     // in rules()
+     return [
+         [['facebook'], AtLeastValidator::className(), 'in' => ['facebook', 'linkedin', 'instagram'], 'max' => 1],
+     ];
+```
+
 ### Showing errors in summary
 
 If you want to show errors in a summary instead in the own attributes, you can do this:
