@@ -103,4 +103,21 @@ class AtLeastValidatorTest extends \PHPUnit_Framework_TestCase
         $v->validateAttribute($m, 'attr1');
         $this->assertCount(1, $m->getErrors(), 'Should have an error since min = 2');
     }
+
+    public function testMaxParam()
+    {
+        $v = new AtLeastValidator(['in' => 'attr1, attr2, attr3']);
+        $m = new FakeModel();
+
+        // min = 1;
+        $v->validateAttribute($m, 'attr1');
+        $this->assertCount(1, $m->getErrors());
+
+        $v->max = 1;
+        $m->attr1 = 'something';
+        $m->attr2 = 'something';
+        $m->attr3 = 'something';
+        $v->validateAttribute($m, 'attr1');
+        $this->assertCount(1, $m->getErrors(), 'Should have an error since max = 1');
+    }
 }
