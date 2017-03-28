@@ -88,6 +88,9 @@ class AtLeastValidator extends Validator
         }
         if ($this->message === null) {
             $this->message = 'You must fill at least {min} of the attributes {attributes}.';
+            if($this->max > 0) {
+                $this->message .= ' And at most {max} attribute(s).';
+            }
         }
     }
 
@@ -107,7 +110,7 @@ class AtLeastValidator extends Validator
 
         if (
             !$chosen || $chosen < $this->min ||
-            ($this->max > 0 && $chosen > $this->max)
+            ($this->max > 0 and $chosen > $this->max)
         ) {
             $attributesList = implode(', ', $attributesListLabels);
             $message = strtr($this->message, [
