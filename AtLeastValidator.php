@@ -40,7 +40,7 @@ use yii\validators\Validator;
  *      ...
  *      echo yii\helpers\Html::errorSummary($model, ['class' => ['text-danger']]);
  *      // OR, to show only `id` errors:
- *      echo yii\helpers\Html::error($model, 'id', ['class' => ['text-danger']]); 
+ *      echo yii\helpers\Html::error($model, 'id', ['class' => ['text-danger']]);
  * ~~~
  *
  *
@@ -53,6 +53,12 @@ class AtLeastValidator extends Validator
      * Defaults to 1.
      */
     public $min = 1;
+
+    /**
+     * @var integer the maximun quantity of chosen attributes that must to be filled.
+     * Defaults to 1.
+     */
+    public $max = 0;
 
     /**
      * @var string|array the list of attributes that should receive the error message. Required.
@@ -99,10 +105,14 @@ class AtLeastValidator extends Validator
             $chosen += !empty($value) ? 1 : 0;
         }
 
-        if (!$chosen || $chosen < $this->min) {
+        if (
+            !$chosen || $chosen < $this->min ||
+            ($this->max > 0 and $chosen > $this->max)
+        ) {
             $attributesList = implode(', ', $attributesListLabels);
             $message = strtr($this->message, [
                 '{min}' => $this->min,
+                '{max}' => $this->max,
                 '{attributes}' => $attributesList,
             ]);
             $model->addError($attribute, $message);
@@ -125,6 +135,7 @@ class AtLeastValidator extends Validator
         }
         $message = strtr($this->message, [
             '{min}' => $this->min,
+            '{max}' => $this->max,
             '{attributes}' => implode(" or ", $attributesLabels),
         ]);
 
@@ -140,7 +151,10 @@ class AtLeastValidator extends Validator
                     var val = obj.val();
                     chosen += val ? 1 : 0;
                 });
-                if (!chosen || chosen < $this->min) {
+                if (
+                    !chosen || chosen < $this->min ||
+                    ($this->max > 0 && chosen > $this->max)
+                ) {
                     messages.push('$message');
                 } else {
                     $.each(atributes, function(key, attr){
