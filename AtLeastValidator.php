@@ -88,6 +88,9 @@ class AtLeastValidator extends Validator
         }
         if ($this->message === null) {
             $this->message = 'You must fill at least {min} of the attributes {attributes}.';
+            if($this->max > 0) {
+                $this->message .= ' And at most {max} attribute(s).';
+            }
         }
     }
 
