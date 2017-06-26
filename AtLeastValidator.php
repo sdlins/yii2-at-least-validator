@@ -2,7 +2,9 @@
 
 namespace codeonyii\yii2validators;
 
+use Yii;
 use yii\base\InvalidConfigException;
+use yii\i18n\PhpMessageSource;
 use yii\validators\Validator;
 
 /**
@@ -80,8 +82,15 @@ class AtLeastValidator extends Validator
         } elseif (! is_array($this->in) && count(preg_split('/\s*,\s*/', $this->in, -1, PREG_SPLIT_NO_EMPTY)) <= 1) {
             throw new InvalidConfigException('The `in` parameter must have at least 2 attributes.');
         }
+		if (!isset(Yii::$app->get('i18n')->translations['message*'])) {
+			Yii::$app->get('i18n')->translations['message*'] = [
+				'class' => PhpMessageSource::className(),
+				'basePath' => __DIR__ . '/messages',
+				'sourceLanguage' => 'en-US'
+			];
+		}
         if ($this->message === null) {
-            $this->message = 'You must fill at least {min} of the attributes {attributes}.';
+            $this->message = Yii::t('messages', 'You must fill at least {min} of the attributes {attributes}.');
         }
     }
 
@@ -125,7 +134,7 @@ class AtLeastValidator extends Validator
         }
         $message = strtr($this->message, [
             '{min}' => $this->min,
-            '{attributes}' => implode(" or ", $attributesLabels),
+            '{attributes}' => implode(Yii::t('messages', ' or '), $attributesLabels),
         ]);
 
         $form = strtolower($model->formName());
