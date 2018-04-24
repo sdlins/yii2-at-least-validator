@@ -50,15 +50,15 @@ class AtLeastValidator extends Validator
 {
     /**
      * @var integer the minimun required quantity of attributes that must to be filled.
-     * Defaults to 1.
+     * Defaults to 0.
      */
-    public $min = 1;
+    public $min = 0;
 
     /**
      * @var integer the maximun quantity of chosen attributes that must to be filled.
      * Defaults to 1.
      */
-    public $max = 0;
+    public $max = 1;
 
     /**
      * @var string|array the list of attributes that should receive the error message. Required.
@@ -87,10 +87,8 @@ class AtLeastValidator extends Validator
             throw new InvalidConfigException('The `in` parameter must have at least 2 attributes.');
         }
         if ($this->message === null) {
-            $this->message = 'You must fill at least {min} of the attributes {attributes}.';
-            if($this->max > 0) {
-                $this->message .= ' And at most {max} attribute(s).';
-            }
+            $this->message = 'You must fill at least {min} of the attributes {attributes}';
+            $this->message .= $this->max > 0 ? ' and at most {max} attribute(s).' : '.';
         }
     }
 
