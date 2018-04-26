@@ -4,7 +4,7 @@
     "type": "yii2-extension",
     "keywords": ["yii2","validator","at least","validation"],
     "homepage": "https://github.com/code-on-yii/yii2-at-least-validator",
-    "license": "Apache 2.0",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Sidney Lins",
