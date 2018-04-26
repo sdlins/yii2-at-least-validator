@@ -16,5 +16,6 @@ before_script:
   - travis_retry composer install --no-interaction --prefer-source --dev
 
 script:
+  - composer show yiisoft/yii2
   - phpunit --version
   - phpunit --coverage-text --coverage-clover=coverage.clover
