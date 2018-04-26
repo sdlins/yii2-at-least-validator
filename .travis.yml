@@ -9,6 +9,7 @@ php:
 install:
   - composer self-update
   - composer global require "fxp/composer-asset-plugin:^1.1"
+  - composer require --dev phpunit/phpunit ^7
   - composer install
 
 before_script:
@@ -16,4 +17,5 @@ before_script:
   - travis_retry composer install --no-interaction --prefer-source --dev
 
 script:
+  - php vendor\phpunit\phpunit\phpunit --version
   - php vendor/phpunit/phpunit/phpunit --coverage-text --coverage-clover=coverage.clover
