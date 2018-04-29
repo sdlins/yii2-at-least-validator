@@ -8,8 +8,7 @@ php:
 
 install:
   - composer self-update
-  - composer require yiisoft/yii2 "~2.0.15"
-  - composer install
+  - composer install --dev
 
 before_script:
   - travis_retry composer self-update
