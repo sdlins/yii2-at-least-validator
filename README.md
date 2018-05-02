@@ -4,6 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/codeonyii/yii2-at-least-validator.svg)](https://packagist.org/packages/codeonyii/yii2-at-least-validator)
 [![Build Status](https://travis-ci.org/code-on-yii/yii2-at-least-validator.svg?branch=master)](https://travis-ci.org/code-on-yii/yii2-at-least-validator)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/code-on-yii/yii2-at-least-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/code-on-yii/yii2-at-least-validator/?branch=master)
+[![CodeFactor](https://www.codefactor.io/repository/github/slinstj/yii2-at-least-validator/badge)](https://www.codefactor.io/repository/github/slinstj/yii2-at-least-validator)
 
 Sometimes, in a set of fields, you need to make at least one of them
 (sometimes two, or more) be filled. For example, phone OR e-mail,
