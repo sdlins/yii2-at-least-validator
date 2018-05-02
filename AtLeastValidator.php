@@ -82,7 +82,7 @@ class AtLeastValidator extends Validator
         } elseif (! is_array($this->in) && count(preg_split('/\s*,\s*/', $this->in, -1, PREG_SPLIT_NO_EMPTY)) <= 1) {
             throw new InvalidConfigException('The `in` parameter must have at least 2 attributes.');
         }
-		if (!isset(Yii::$app->get('i18n')->translations['message*'])) {
+		if (!Yii::$app->get('i18n')->getMessageSource('messages')) {
 			Yii::$app->get('i18n')->translations['message*'] = [
 				'class' => PhpMessageSource::className(),
 				'basePath' => __DIR__ . '/messages',
