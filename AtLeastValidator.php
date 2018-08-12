@@ -137,7 +137,7 @@ class AtLeastValidator extends Validator
             '{attributes}' => implode(Yii::t('messages', ' or '), $attributesLabels),
         ]);
 
-        $form = strtolower($model->formName());
+        $form = $model->formName();
 
         return <<<JS
             function atLeastValidator() {
@@ -145,7 +145,11 @@ class AtLeastValidator extends Validator
                 var formName = '$form';
                 var chosen = 0; 
                 $.each(atributes, function(key, attr){
-                    var obj = $('#' + formName + '-' + attr);
+                    var obj = $('#' + formName.toLowerCase() + '-' + attr);
+                    if(obj.length == 0){
+                        obj = $("[name=\""+formName + '[' + attr + ']'+"\"]");
+                    }
+
                     var val = obj.val();
                     chosen += val ? 1 : 0;
                 });
@@ -153,7 +157,11 @@ class AtLeastValidator extends Validator
                     messages.push('$message');
                 } else {
                     $.each(atributes, function(key, attr){
-                        var attrId = formName + '-' + attr;
+                        var attrId = formName.toLowerCase() + '-' + attr;
+                        if($('#' + attrId).length == 0){
+                            attrId = $("[name=\""+formName + '[' + attr + ']'+"\"]").attr('id');
+                        }
+
                         \$form.yiiActiveForm('updateAttribute', attrId, '');
                     });
                 }
@@ -162,3 +170,4 @@ class AtLeastValidator extends Validator
 JS;
     }
 }
+
