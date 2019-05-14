@@ -130,7 +130,7 @@ class AtLeastValidator extends Validator
 
         $attributesLabels = [];
         foreach ($attributes as $attr) {
-            $attributesLabels[] = '"' . $model->getAttributeLabel($attr) . '"';
+            $attributesLabels[] = '"' . addcslashes($model->getAttributeLabel($attr), "'") . '"';
         }
         $message = strtr($this->message, [
             '{min}' => $this->min,
